@@ -1,0 +1,17 @@
+<body>
+  <h1>Books</h1>
+  <p>
+    Title:<%= @book.title %>
+  </p>
+  
+  <p>
+    Body:<%= @book.body %>
+  </p>
+  <!--あとで-->
+  <p>
+    <%= link_to "Edit", book_edit_path %>
+    |
+    <%= link_to "Back", book_path %>
+  </p>
+
+</body>

@@ -1,11 +1,12 @@
 <body>
+  
   <h1>Books</h1>
   <!--ここからtable-->
   <table>
     <tr>
       <th>title</th> <th>body</th> <th></th>
     </tr>
-    <% @book.each do |book| %>
+    <% @books.each do |book| %>
       <tr>
       <td><%= book.title %></td>
       <td><%= book.body %></td>
@@ -20,12 +21,10 @@
   </table>
   <!--ここから投稿フォーム-->
       <h2>New book</h2>
-  <% @book.error.any? %>
-    <%= @book.error.count %>errors prohibited this book from being saved:
-  <% end %>
+      
     <div ="form-box">
       <div class ="error-box">
-        <% @book.errors.any? %>
+        <% if @book.errors.any? %>
           <h2><%= @book.errors.count %>errors prohibited this book from being saved:</h2>
           <ul>
             <% @book.errors.full_message.each do |message|%>
@@ -34,7 +33,7 @@
           </ul>
         <% end %>
       </div>
-      <%= form_with model: @books do |f| %>
+      <%= form_with model: @book do |f| %>
 
         <h5>Title</h5>
         <%= f.text_field :title %>
@@ -45,6 +44,5 @@
         <%= f.submit 'Create book' %>
       <% end %>
     </div>
-
-
+    
 </body>

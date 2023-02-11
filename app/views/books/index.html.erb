@@ -3,34 +3,48 @@
   <!--ここからtable-->
   <table>
     <tr>
-      <th>title</th> <th>body</th> <th></th> <th></th> <th></th>
+      <th>title</th> <th>body</th> <th></th>
     </tr>
     <% @book.each do |book| %>
       <tr>
       <td><%= book.title %></td>
       <td><%= book.body %></td>
       <!--あとで-->
-      <td>show</td>
-      <td>edit</td>
-      <td>destroy</td>
+      <td>
+        <%= link_to "Show", book_show_path(book.id) %>
+        <%= link_to "Edit", book_edit_path(book.id) %>
+        <%= link_to "Destroy", book_destroy_path(book.id), method: :delete, "data-confirm" => "Are you sure?" %>
+      </td>
       </tr>
     <% end %>
   </table>
   <!--ここから投稿フォーム-->
       <h2>New book</h2>
-  
-  <div ="form-box">
-    <%= form_with model: @books do |f| %>
-    
-      <h5>Title</h5>
-      <%= f.text_field :title %>
-    
-      <h5>Body</h5>
-      <%= f.text_area :body %>
-    
-      <%= f.submit 'Create book' %>
-    <% end %>
-  </div>
+  <% @book.error.any? %>
+    <%= @book.error.count %>errors prohibited this book from being saved:
+  <% end %>
+    <div ="form-box">
+      <div class ="error-box">
+        <% @book.errors.any? %>
+          <h2><%= @book.errors.count %>errors prohibited this book from being saved:</h2>
+          <ul>
+            <% @book.errors.full_message.each do |message|%>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+      <%= form_with model: @books do |f| %>
+
+        <h5>Title</h5>
+        <%= f.text_field :title %>
+
+        <h5>Body</h5>
+        <%= f.text_area :body %>
+
+        <%= f.submit 'Create book' %>
+      <% end %>
+    </div>
 
 
 </body>

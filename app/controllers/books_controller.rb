@@ -6,11 +6,20 @@ class BooksController < ApplicationController
     @book = Book.all
     @books = Book.new
   end
+  
+  def destroy
+    book = Book.find(params[:id])
+    book.destroy
+    redirect_to book_path
+  end
 
   def create
     book = Book.new(book_params)
-    book.save
-    redirect_to book_show_path(book.id)
+    if @book.save
+      redirect_to book_show_path(book.id)
+    else
+      render :new
+    end
   end
 
   def show
